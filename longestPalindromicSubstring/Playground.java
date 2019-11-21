@@ -3,7 +3,7 @@ import java.util.*;
 public class Playground {
 
     public void run(){
-        longestPalindrome("babadabadffhhheeehhh");
+        longestPalindrome("jrjnbctoqgzimtoklkxcknwmhiztomaofwwzjnhrijwkgmwwuazcowskjhitejnvtblqyepxispasrgvgzqlvrmvhxusiqqzzibcyhpnruhrgbzsmlsuacwptmzxuewnjzmwxbdzqyvsjzxiecsnkdibudtvthzlizralpaowsbakzconeuwwpsqynaxqmgngzpovauxsqgypinywwtmekzhhlzaeatbzryreuttgwfqmmpeywtvpssznkwhzuqewuqtfuflttjcxrhwexvtxjihunpywerkktbvlsyomkxuwrqqmbmzjbfytdddnkasmdyukawrzrnhdmaefzltddipcrhuchvdcoegamlfifzistnplqabtazunlelslicrkuuhosoyduhootlwsbtxautewkvnvlbtixkmxhngidxecehslqjpcdrtlqswmyghmwlttjecvbueswsixoxmymcepbmuwtzanmvujmalyghzkvtoxynyusbpzpolaplsgrunpfgdbbtvtkahqmmlbxzcfznvhxsiytlsxmmtqiudyjlnbkzvtbqdsknsrknsykqzucevgmmcoanilsyyklpbxqosoquolvytefhvozwtwcrmbnyijbammlzrgalrymyfpysbqpjwzirsfknnyseiujadovngogvptphuyzkrwgjqwdhtvgxnmxuheofplizpxijfytfabx");
     }
 
     public String longestPalindrome(String s) {
@@ -12,10 +12,10 @@ public class Playground {
 
     public String bruteForce(String s){
         char[] charArray = s.toCharArray();
-        int[] tuple = new int[]{0,0};
+        int[] tuple = new int[]{0,-1};
 
         for(int i = 0; i < charArray.length; i++){
-            for(int j = 1; j < charArray.length; j++){
+            for(int j = 0; j < charArray.length; j++){
                 if(checkPalindrome(charArray, i, j))
                     if((j-i) > tuple[1] - tuple[0]){
                         tuple[0] = i;
