@@ -10,7 +10,7 @@ public class Playground {
 
         //just have to return the row of the n that it fails on
         //sum of (n+1) from 0 to k... and returning k essentially.
-        return bruteForce(n);
+        return faster(n);
     }
 
     public int faster(int n){
