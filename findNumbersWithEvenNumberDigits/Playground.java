@@ -7,7 +7,7 @@ public class Playground {
     }
 
     public int findNumbers(int[] nums) {
-        return betterSolution(nums);
+        return anotherSolution(nums);
     }
 
     public int anotherSolution(int[] nums){
