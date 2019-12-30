@@ -10,6 +10,17 @@ public class Playground {
         return betterSolution(nums);
     }
 
+    public int anotherSolution(int[] nums){
+        Integer totalCounter = 0;
+        for(Integer number : nums){
+
+            //turn the number into a string and get the length?
+            if((Math.log10(number)+1) % 2 == 0)
+                totalCounter++;
+        }
+        return totalCounter;
+    }
+
     public int betterSolution(int[] nums){
         Integer totalCounter = 0;
         for(Integer number : nums){
