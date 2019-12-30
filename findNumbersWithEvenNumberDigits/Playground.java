@@ -7,6 +7,21 @@ public class Playground {
     }
 
     public int findNumbers(int[] nums) {
+        return betterSolution(nums);
+    }
+
+    public int betterSolution(int[] nums){
+        Integer totalCounter = 0;
+        for(Integer number : nums){
+
+            //turn the number into a string and get the length?
+            if(String.valueOf(number).length() % 2 == 0)
+                totalCounter++;
+        }
+        return totalCounter;
+    }
+
+    public int bruteForce (int[] nums){
         Integer totalCounter = 0;
         for(Integer number : nums){
             Integer digitCounter = 0;
