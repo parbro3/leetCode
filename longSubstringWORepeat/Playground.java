@@ -1,32 +1,40 @@
 public class Playground {
 
     public void run(){
-        String asdf = "asdffewragsdf";
-        //output should be 49
-        betterSolution(asdf);
+        String asdf = "abcabcbb";
+        //answer is abc of length 3
+        bruteForce(asdf);
     }
 
     public int betterSolution(String s) {
+        //deleted to try again
+        return 0;
+    }
 
-        int currentCount = 0;
-        int highestCount = 0;
-        int initialIndex = 0;
+    public int bruteForce(String s){
+        int longestLength = 0;
+        int currentLength = 0;
+        int firstIndexSB = 0;
         char[] charArray = s.toCharArray();
-        Map<Character,Integer> charCount = new HashMap<Character,Integer>();
 
+        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < charArray.length; i++){
-            if(charCount.get(charArray[i]) == null){
-                charCount.put(charArray[i], i);
-                currentCount++;
-                if(currentCount > highestCount)
-                    highestCount = currentCount;
-            }else{
-                currentCount = 0;
-                i = charCount.get(charArray[i]);
-                charCount = new HashMap<Character,Integer>();
+            if(sb.toString().contains(String.valueOf(charArray[i]))){
+                sb = new StringBuilder();
+                i = firstIndexSB;
+                firstIndexSB = firstIndexSB + 1;
             }
+            else{
+                sb.append(charArray[i]);
+                currentLength = sb.length();
+                if(currentLength > longestLength)
+                    longestLength = currentLength;
+            }
+            //but wait... we have to have the ability to go back...
+            //maybe we keep track of the index for the first letter of the stringbuilder
         }
-        return highestCount;
+
+        return longestLength;
     }
 
 }
