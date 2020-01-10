@@ -23,27 +23,36 @@ public class Playground {
         List<List<Integer>> allLists = new ArrayList<List<Integer>>();
 
         //build crazy map first
-        Map<Integer, Integer[]> crazyMap = new HashMap<>();
+        Map<Integer, List<Integer[]>> crazyMap = new HashMap<>();
         for(int i = 0; i < nums.length; i++){
             for(int j = 0; j < nums.length; j++){
                 if(i != j){
-                    if(crazyMap.get(nums[i]+nums[j]) == null)
-                        crazyMap.put(nums[i] + nums[j], new Integer[]{i, j});
+                    List<Integer[]> tempListOfArray = crazyMap.get(nums[i]+nums[j]);
+                    if(tempListOfArray == null){
+                        List<Integer[]> tempList = new ArrayList<>();
+                        tempList.add(new Integer[]{i, j});
+                        crazyMap.put(nums[i] + nums[j], tempList);
+                    } else{
+                        //append it to the linked list
+                        tempListOfArray.add(new Integer[]{i,j});
+                    }
                 }
             }
         }
 
         //now that we have the crazy map... loop through the array again
         for(int i = 0; i < nums.length; i++){
-            Integer[] value = crazyMap.get(nums[i]*-1);
-            if(value != null){
-                if(i != value[0] && i != value[1]){
-                    if(nums[i] + nums[value[0]] + nums[value[1]] == 0){
-                        List<Integer> tempList = new ArrayList<>();
-                        tempList.add(nums[value[0]]); tempList.add(nums[value[1]]); tempList.add(nums[i]);
+            List<Integer[]> chainedValues = crazyMap.get(nums[i]*-1);
+            if(chainedValues != null){
+                for(Integer[] value : chainedValues){
+                    if(i != value[0] && i != value[1]){
+                        if(nums[i] + nums[value[0]] + nums[value[1]] == 0){
+                            List<Integer> tempList = new ArrayList<>();
+                            tempList.add(nums[value[0]]); tempList.add(nums[value[1]]); tempList.add(nums[i]);
 
-                        if(!checkAlreadyIn(allLists, tempList))
-                            allLists.add(tempList);
+                            if(!checkAlreadyIn(allLists, tempList))
+                                allLists.add(tempList);
+                        }
                     }
                 }
             }
@@ -53,8 +62,9 @@ public class Playground {
         return allLists;
     }
 
-    public boolean checkAlreadyIn(List<List<Integer>> allLists, List<Integer> tempList){
+    public boolean checkAlreadyIn(List<List<Integer>> allLists, List<Integer> checkList){
         for(List<Integer> currentList : allLists){
+            List<Integer> tempList = new ArrayList<>(checkList);
             if(checkSame(currentList, tempList)){
                 return true;
             }
@@ -64,10 +74,9 @@ public class Playground {
 
     public boolean checkSame(List<Integer> list1, List<Integer> list2){
         for(Integer num : list1){
-            if(!list2.contains(num))
-                return false;
+            list2.remove(num);
         }
-        return true;
+        return list2.size() == 0;
     }
 
 }
