@@ -7,7 +7,27 @@ public class Playground {
     }
 
     public int[] twoSum(int[] nums, int target) {
-        return bruteForce(nums, target);                
+        return optimized(nums, target);                
+    }
+
+    public int[] optimized(int[] nums, int target){
+        //probably use a map
+
+        //don't want nested stuff
+
+        //make a map of the index to the difference... then parse through again
+        Map<Integer, Integer> indexToDifference = new HashMap<Integer, Integer>();
+        for(int i = 0; i < nums.length; i++){
+            indexToDifference.put(target - nums[i], i);
+        }
+
+        for(int i = 0; i < nums.length; i++){
+            if(indexToDifference.get(nums[i]) != null){
+                if(i != indexToDifference.get(nums[i]))
+                    return new int[]{i, indexToDifference.get(nums[i])};
+            }
+        }
+        return null;
     }
 
     public int[] bruteForce(int[] nums, int target){
