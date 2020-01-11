@@ -31,16 +31,14 @@ public class Playground {
         //build map first
         for(int i = 0; i < nums.length; i++){
             for(int j = 0; j < nums.length; j++){
-                if(i != j && i < j){
+                if(i < j){
                     Integer index = crazyMap.get((nums[i]+nums[j])*-1);
-                    if(index != null){
-                        if(i != index && j != index){
-                            List<Integer> tempList = new ArrayList<>();
-                            tempList.add(nums[i]); tempList.add(nums[j]); tempList.add(nums[index]);
+                    if(index != null && j < index){
+                        List<Integer> tempList = new ArrayList<>();
+                        tempList.add(nums[i]); tempList.add(nums[j]); tempList.add(nums[index]);
 
-                            if(!checkAlreadyIn(allLists, tempList))
-                                allLists.add(tempList);
-                        }
+                        if(!checkAlreadyIn(allLists, tempList))
+                            allLists.add(tempList);
                     }
                 }
             }
