@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 public class Playground {
 
     public void run(){
-        threeSum(new int[]{-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6});
+        threeSum(new int[]{-1, 0, 1, 2, -1, -4});
         /*
             A solution set is:
             [
@@ -21,34 +21,22 @@ public class Playground {
     public List<List<Integer>> bruteForce(int[] nums){
 
         List<List<Integer>> allLists = new ArrayList<List<Integer>>();
+        Map<Integer, Integer> crazyMap = new HashMap<>();
 
-        //build crazy map first
-        Map<Integer, List<Integer[]>> crazyMap = new HashMap<>();
+        //initialize map
         for(int i = 0; i < nums.length; i++){
-            for(int j = 0; j < nums.length; j++){
-                if(i != j){
-                    List<Integer[]> tempListOfArray = crazyMap.get(nums[i]+nums[j]);
-                    if(tempListOfArray == null){
-                        List<Integer[]> tempList = new ArrayList<>();
-                        tempList.add(new Integer[]{i, j});
-                        crazyMap.put(nums[i] + nums[j], tempList);
-                    } else{
-                        //append it to the linked list
-                        tempListOfArray.add(new Integer[]{i,j});
-                    }
-                }
-            }
+            crazyMap.put(nums[i], i);
         }
 
-        //now that we have the crazy map... loop through the array again
+        //build map first
         for(int i = 0; i < nums.length; i++){
-            List<Integer[]> chainedValues = crazyMap.get(nums[i]*-1);
-            if(chainedValues != null){
-                for(Integer[] value : chainedValues){
-                    if(i != value[0] && i != value[1]){
-                        if(nums[i] + nums[value[0]] + nums[value[1]] == 0){
+            for(int j = 0; j < nums.length; j++){
+                if(i != j && i < j){
+                    Integer index = crazyMap.get((nums[i]+nums[j])*-1);
+                    if(index != null){
+                        if(i != index && j != index){
                             List<Integer> tempList = new ArrayList<>();
-                            tempList.add(nums[value[0]]); tempList.add(nums[value[1]]); tempList.add(nums[i]);
+                            tempList.add(nums[i]); tempList.add(nums[j]); tempList.add(nums[index]);
 
                             if(!checkAlreadyIn(allLists, tempList))
                                 allLists.add(tempList);
@@ -58,7 +46,6 @@ public class Playground {
             }
         }
 
-        //holy... this works.. but has duplicates. What if we changed to a set.
         return allLists;
     }
 
