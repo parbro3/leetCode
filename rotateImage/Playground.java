@@ -3,8 +3,26 @@ import java.util.*;
 public class Playground {
 
     public void run(){
-        rotate(new int[][]{new int[] {5, 1, 9,11}, new int[] {2, 4, 8,10}, new int[] {13, 3, 6, 7}, new int[] {15,14,12,16}});
+        rotate(new int[][]{new int[] {1,2,3}, new int[] {4,5,6}, new int[] {7,8,9}});
     }
+
+
+    /*
+
+    [
+        [1,2,3],
+        [4,5,6],
+        [7,8,9]
+    ],
+
+    [
+        [7,4,1],
+        [8,5,2],
+        [9,6,3]
+    ]
+
+    */
+
 
     /*
         [
@@ -30,31 +48,20 @@ public class Playground {
     //[last][0] becomes [0][0]
 
     public void rotate(int[][] matrix) {
-        for(int i = 0; i < matrix.length/2; i++){
-            for(int j = 0; j < matrix[0].length/2; j++){
 
-                //first flip
-                //this is 5
-                //next j is 1
+        int ending = matrix.length/2;
+        if(matrix.length%2 == 1)
+            ending+=1;
+
+        for(int i = 0; i < ending; i++){
+            for(int j = 0; j < matrix.length/2; j++){
+
                 int tempFirst = matrix[i][j];
-                //change 5 to 15
-                //change 1 to 13
                 matrix[i][j] = matrix[matrix.length - 1 - j][i];
-
-                //change 15 to 16
-                //change 13 to 12
                 matrix[matrix.length - 1 - j][i] = matrix[matrix.length - 1 - i][matrix.length - 1 - j];
-
-                //change 16 to 11
-                //change 12 to 10
                 matrix[matrix.length - 1 - i][matrix.length - 1 - j] = matrix[j][matrix.length - 1 - i];
-
-                //change 11 to 5... or saved temp
-                //change 10 to saved 1
                 matrix[j][matrix.length - 1 - i] = tempFirst;
-
             }
         }
-        System.out.print("asdf");
     }
 }
