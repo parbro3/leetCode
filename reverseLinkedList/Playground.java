@@ -23,8 +23,24 @@ public class Playground {
 
     public ListNode reverseList(ListNode head) {
         
-        return iterative(head);
+        return iterativeInPlace(head);
 
+    }
+
+
+    public ListNode iterativeInPlace(ListNode node){
+        ListNode rightNode = null;
+        ListNode currentNode = node;
+        while(currentNode != null){
+
+            ListNode copyRest = currentNode.next;
+            currentNode.next = rightNode;
+            rightNode = currentNode;
+
+            //iterate through them
+            currentNode = copyRest;
+        }
+        return currentNode;
     }
 
 
