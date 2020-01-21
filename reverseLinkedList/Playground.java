@@ -22,11 +22,25 @@ public class Playground {
     }
 
     public ListNode reverseList(ListNode head) {
-        
-        return iterativeInPlace(head);
-
+        return recursive(head);
     }
 
+    public ListNode recursive(ListNode head){
+        return helper(head);
+    }
+
+    public ListNode helper(ListNode node){
+
+        if(node.next == null || node == null)
+            return node;
+        else{
+            ListNode temp = helper(node.next);
+            node.next.next = node;
+            node.next = null;
+            return temp;
+        }
+
+    }
 
     public ListNode iterativeInPlace(ListNode node){
         ListNode rightNode = null;
