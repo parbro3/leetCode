@@ -36,37 +36,43 @@ public class Playground {
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
 
-        //simple level order traversal...
-        helper(root, 0);
+        //level order traversal using queue
+        Queue<TreeNode> masterQueue = new LinkedList<>();
+        masterQueue.add(root);
 
+        int depth = 0;
+        Map<Integer, List<Integer>> depthToList = new HashMap<>();
         List<List<Integer>> masterList = new ArrayList<>();
-        for(Integer depth : depthToList.keySet()){
-            masterList.add(depthToList.get(depth));
+        
+        //while the queue is not empty
+        while(!masterQueue.isEmpty()){
+
+            //get node from queue
+            TreeNode node = masterQueue.poll();
+            if(depthToList.get(depth) == null)
+                depthToList.put(depth, new ArrayList<Integer>());
+            else{
+                List<Integer> tempList = depthToList.get(depth);
+                tempList.add(node.val);
+            }
+
+            //do whatever with the node... keep track of depth?
+
+            depth++;
+            if(node.left != null)
+                masterQueue.add(node.left);
+            if(node.right != null)
+                masterQueue.add(node.right);
         }
+
+        //now i should have a queue in the right order
+        for(Integer index : depthToList.keySet()){
+            masterList.add(depthToList.get(index));
+        }
+
         return masterList;
+
     }
 
-    public void helper(TreeNode node, int depth){
-        if(node == null)
-            return;
-
-        //this will be fine if you put it in the right spot
-        if(depthToList.get(depth) == null){
-            depthToList.put(depth, new ArrayList<Integer>());
-        }
-        System.out.print(node.val);
-        List<Integer> tempList = depthToList.get(depth);
-        tempList.add(node.val);
-
-        depth+=1;
-
-        if(depth%2 == 0){
-            helper(node.left, depth);
-            helper(node.right, depth);
-        } else {
-            helper(node.right, depth);
-            helper(node.left, depth);
-        }
-    }
 
 }
